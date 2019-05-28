@@ -11,26 +11,72 @@ import java.util.*;
 // TODO: random lights show, robot side of comm
 public class Main {
 
-    private static final Map<MCP23S17.Pin, String> commandMap;
+    private static class Command {
+
+        private final String name;
+        private final boolean hold;
+
+        private Command(String name, boolean hold) {
+            this.name = name;
+            this.hold = hold;
+        }
+    }
+
+    private static class BlinkerThread extends Thread {
+
+        private static final int DELAY_MS = 500;  // Half cycle (i.e. from high-to-low or low-to-high).
+        private static final int NUM_BLINKS = 4;  // Number of full cycles (i.e. from high to low to high).
+
+        private final MCP23S17.Pin pin;
+
+        private BlinkerThread(MCP23S17.Pin pin) {
+            setDaemon(true);
+            this.pin = pin;
+        }
+
+        @Override
+        public void run() {
+            MCP23S17.PinView pinView = leds.getPinView(pin);
+            try {
+                for (int i = 0; i < NUM_BLINKS; ++i) {
+                    pinView.set(false);
+                    writeCorrespondingOLAT(pin);
+                    Thread.sleep(DELAY_MS);
+
+                    pinView.set(true);
+                    writeCorrespondingOLAT(pin);
+                    Thread.sleep(DELAY_MS);
+                }
+            } catch (IOException e) {
+                System.err.println("error while blinking LED");
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                // Blinker threads should never be interrupted.
+                throw new AssertionError(e);
+            }
+        }
+    }
+
+    private static final Map<MCP23S17.Pin, Command> commandMap;
 
     static {
-        Map<MCP23S17.Pin, String> map = new HashMap<>();
-        map.put(MCP23S17.Pin.PIN0, "elevatorLevel1");
-        map.put(MCP23S17.Pin.PIN1, "elevatorLevel2");
-        map.put(MCP23S17.Pin.PIN2, "elevatorLevel3");
-        map.put(MCP23S17.Pin.PIN3, "frontArmsVertical");
-        map.put(MCP23S17.Pin.PIN4, "frontArmsHorizontal");
-        map.put(MCP23S17.Pin.PIN5, "eject");
-        map.put(MCP23S17.Pin.PIN6, "pinToggle");
-        map.put(MCP23S17.Pin.PIN7, "leftDriveWheelsForward");
-        map.put(MCP23S17.Pin.PIN8, "leftDriveWheelsReverse");
-        map.put(MCP23S17.Pin.PIN9, "rightDriveWheelsForward");
-        map.put(MCP23S17.Pin.PIN10, "rightDriveWheelsReverse");
-        map.put(MCP23S17.Pin.PIN11, "linearActuatorRetract");
-        map.put(MCP23S17.Pin.PIN12, "linearActuatorExtend");
-        map.put(MCP23S17.Pin.PIN13, "spinClimbDriveWheels");
-        map.put(MCP23S17.Pin.PIN14, "shuffleLateralSlide");
-        map.put(MCP23S17.Pin.PIN15, "random");
+        Map<MCP23S17.Pin, Command> map = new HashMap<>();
+        map.put(MCP23S17.Pin.PIN0, new Command("elevatorLevel1", false));
+        map.put(MCP23S17.Pin.PIN1, new Command("elevatorLevel2", false));
+        map.put(MCP23S17.Pin.PIN2, new Command("elevatorLevel3", false));
+        map.put(MCP23S17.Pin.PIN3, new Command("frontArmsVertical", false));
+        map.put(MCP23S17.Pin.PIN4, new Command("frontArmsHorizontal", false));
+        map.put(MCP23S17.Pin.PIN5, new Command("eject", false));
+        map.put(MCP23S17.Pin.PIN6, new Command("pinToggle", false));
+        map.put(MCP23S17.Pin.PIN7, new Command("leftDriveWheelsForward", true));
+        map.put(MCP23S17.Pin.PIN8, new Command("leftDriveWheelsReverse", true));
+        map.put(MCP23S17.Pin.PIN9, new Command("rightDriveWheelsForward", true));
+        map.put(MCP23S17.Pin.PIN10, new Command("rightDriveWheelsReverse", true));
+        map.put(MCP23S17.Pin.PIN11, new Command("linearActuatorRetract", true));
+        map.put(MCP23S17.Pin.PIN12, new Command("linearActuatorExtend", true));
+        map.put(MCP23S17.Pin.PIN13, new Command("spinClimbDriveWheels", true));
+        map.put(MCP23S17.Pin.PIN14, new Command("shuffleLateralSlide", false));
+        map.put(MCP23S17.Pin.PIN15, new Command("random", false));
         commandMap = Collections.unmodifiableMap(map);
     }
 
@@ -40,6 +86,8 @@ public class Main {
     private static NetworkTableEntry releasedEntry;
     private static final List<String> pressedCache = new ArrayList<>();
     private static final List<String> releasedCache = new ArrayList<>();
+    // TODO: doc -- this map is just so the threads dont get GCed
+    private static final Map<MCP23S17.Pin, BlinkerThread> blinkerThreads = new HashMap<>();
 
     // Timings on busy loop pin-toggling:
     // period: ~1.2 us
@@ -65,10 +113,14 @@ public class Main {
         try {
             // Configure LEDs IO Expander.
             for (Iterator<MCP23S17.PinView> iter = leds.getPinViewIterator(); iter.hasNext();) {
-                iter.next().setAsOutput();
+                MCP23S17.PinView pinView = iter.next();
+                pinView.setAsOutput();
+                pinView.set(true);
             }
             leds.writeIODIRA();
             leds.writeIODIRB();
+            leds.writeOLATA();
+            leds.writeOLATB();
 
             // Configure buttons IO Expander.
             for (Iterator<MCP23S17.PinView> iter = buttons.getPinViewIterator(); iter.hasNext();) {
@@ -154,17 +206,58 @@ public class Main {
     }
 
     private static void onButtonUpdate(boolean state, MCP23S17.Pin pin) {
+        Command command = commandMap.get(pin);
         if (state) {
             System.out.println(String.format("Button %d released.", pin.getPinNumber()));
-            pressedCache.add(commandMap.get(pin));
+
+            // Issue the command.
+            pressedCache.add(command.name);
             if (pressedEntry.getValue().getStringArray().length == 0) {
                 flushPressed();
             }
+
+            // Handle LEDs.
+            if (command.hold) {
+                setLED(pin, true);
+            }
         } else {
             System.out.println(String.format("Button %d pressed.", pin.getPinNumber()));
-            releasedCache.add(commandMap.get(pin));
+
+            // Issue the command.
+            releasedCache.add(command.name);
             if (releasedEntry.getValue().getStringArray().length == 0) {
                 flushReleased();
+            }
+
+            // Handle LEDs.
+            if (command.hold) {
+                setLED(pin, false);
+            } else {
+                BlinkerThread blinkerThread = new BlinkerThread(pin);
+                blinkerThread.start();
+                blinkerThreads.put(pin, blinkerThread);
+            }
+        }
+    }
+
+    private static void setLED(MCP23S17.Pin pin, boolean value) {
+        try {
+            leds.getPinView(pin).set(value);
+            writeCorrespondingOLAT(pin);
+        } catch (IOException e) {
+            System.err.println("error while setting LED");
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("SynchronizeOnNonFinalField")
+    private static void writeCorrespondingOLAT(MCP23S17.Pin pin) throws IOException {
+        // Register writes on MCP23S17 are not thread-safe--external synchronization required here.
+        synchronized (leds) {
+            if (pin.isPortA()) {
+                leds.writeOLATA();
+            } else {
+                leds.writeOLATB();
             }
         }
     }
