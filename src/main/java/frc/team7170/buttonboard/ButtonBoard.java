@@ -31,47 +31,47 @@ public final class ButtonBoard {
 
         // Populate BUTTON_PIN_COMMAND_SERVICE_MAP.
         BiConsumer<MCP23S17.Pin, Boolean> pinSetter = ButtonBoard::setLEDUnchecked;
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN0, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN4, new CommandService(
                 new DeterministicCommandResolver(Command.ELEVATOR_LEVEL_1),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN1, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN5, new CommandService(
                 new DeterministicCommandResolver(Command.ELEVATOR_LEVEL_2),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN2, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN6, new CommandService(
                 new DeterministicCommandResolver(Command.ELEVATOR_LEVEL_3),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN3, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN9, new CommandService(
                 new DeterministicCommandResolver(Command.FRONT_ARMS_VERTICAL),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN4, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN8, new CommandService(
                 new DeterministicCommandResolver(Command.FRONT_ARMS_HORIZONTAL),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN5, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN1, new CommandService(
                 new DeterministicCommandResolver(Command.EJECT),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN6, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN0, new CommandService(
                 new DeterministicCommandResolver(Command.PIN_TOGGLE),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN7, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN14, new CommandService(
                 new DeterministicCommandResolver(Command.LEFT_DRIVE_WHEELS_FORWARD),
                 new FollowingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN8, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN15, new CommandService(
                 new DeterministicCommandResolver(Command.LEFT_DRIVE_WHEELS_REVERSE),
                 new FollowingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN9, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN12, new CommandService(
                 new DeterministicCommandResolver(Command.RIGHT_DRIVE_WHEELS_FORWARD),
                 new FollowingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN10, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN13, new CommandService(
                 new DeterministicCommandResolver(Command.RIGHT_DRIVE_WHEELS_REVERSE),
                 new FollowingLEDDisplayHandler(pinSetter))
         );
@@ -79,19 +79,19 @@ public final class ButtonBoard {
                 new DeterministicCommandResolver(Command.LINEAR_ACTUATOR_RETRACT),
                 new FollowingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN12, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN10, new CommandService(
                 new DeterministicCommandResolver(Command.LINEAR_ACTUATOR_EXTEND),
                 new FollowingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN13, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN7, new CommandService(
                 new DeterministicCommandResolver(Command.SPIN_CLIMB_DRIVE_WHEELS),
                 new FollowingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN14, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN2, new CommandService(
                 new DeterministicCommandResolver(Command.SHUFFLE_LATERAL_SLIDE),
                 new BlinkingLEDDisplayHandler(pinSetter))
         );
-        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN15, new CommandService(
+        BUTTON_PIN_COMMAND_SERVICE_MAP.put(MCP23S17.Pin.PIN3, new CommandService(
                 new RandomCommandResolver(
                         Command.ELEVATOR_LEVEL_1,
                         Command.ELEVATOR_LEVEL_2,
@@ -176,6 +176,24 @@ public final class ButtonBoard {
         releasedEntry.addListener(ButtonBoard::onReleasedEntryCleared, EntryListenerFlags.kUpdate);
         buttons.addGlobalListener(ButtonBoard::onButtonUpdate);
         System.out.println("Awaiting button presses...");
+
+//        try (Scanner scanner = new Scanner(System.in)) {
+//            Random random = new Random();
+//            MCP23S17.Pin pin = null;
+//            while (true) {
+//                scanner.nextLine();
+//                int pinNumber = random.nextInt(16);
+//                if (pin != null) {
+//                    setLEDUnchecked(pin, false);
+//                }
+//                pin = MCP23S17.Pin.fromPinNumber(pinNumber);
+//                setLEDUnchecked(pin, true);
+//                System.out.println(pinNumber);
+//                if (false) {
+//                    break;
+//                }
+//            }
+//        }
 
         try {
             // Nothing else to do in main thread; we're just waiting for interrupts now.
