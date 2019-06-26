@@ -20,7 +20,7 @@ This will produce an executable JAR in `build/libs`.
 ## Running
 To execute the JAR produced under Building, simply run
 
-    java -jar <name-of-jar>
+    java -jar /path/to/jar
     
 which might need root privileges to access the SPI hardware (prepend with
 `sudo`).
