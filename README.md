@@ -27,7 +27,7 @@ which might need root privileges to access the SPI hardware (prepend with
 
 ## Configuration
 
-#### Enabling SPI Interface
+### Enabling SPI Interface
 The Raspberry Pi's SPI interface must be enabled in order to communicate with
 the SPI IO expanders; by default, it is disabled. To enable it run
 
@@ -37,7 +37,7 @@ the SPI IO expanders; by default, it is disabled. To enable it run
 with the up/down arrow keys to "5 Interfacing Options", then "P4 SPI", and
 enable it. Then, use the left/right arrow keys to select "Finish".
 
-#### Executing JAR on Boot
+### Executing JAR on Boot
 It is probably desirable to have to JAR execute when the Raspberry Pi boots.
 To do so, we can execute the JAR in `/etc/rc.local`, which is executed on
 startup. Edit `rc.local` (`sudo nano /etc/rc.local`) and insert the following
