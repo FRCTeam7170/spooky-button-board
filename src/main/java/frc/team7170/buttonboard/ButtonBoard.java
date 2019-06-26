@@ -13,6 +13,8 @@ import java.util.function.BiConsumer;
 // TODO: debouncing?
 public final class ButtonBoard {
 
+    private static final int TEAM_NUMBER = 7170;
+
     private static final Map<MCP23S17.Pin, CommandService> BUTTON_PIN_COMMAND_SERVICE_MAP = new HashMap<>();
 
     static {
@@ -154,8 +156,8 @@ public final class ButtonBoard {
         // Initialize network tables.
         {
             NetworkTableInstance instance = NetworkTableInstance.getDefault();
-            System.out.print("Waiting for robot connection...");
-            instance.startClientTeam(7170);
+            System.out.println("Waiting for robot connection...");
+            instance.startClientTeam(TEAM_NUMBER);
             try {
                 // Block until NT connects.
                 while (!instance.isConnected()) {
@@ -165,7 +167,7 @@ public final class ButtonBoard {
                 // Main thread should never be interrupted.
                 throw new AssertionError(e);
             }
-            System.out.println("connected!");
+            System.out.println("Connected!");
             pressedEntry = instance.getEntry("buttonBoardPressed");
             releasedEntry = instance.getEntry("buttonBoardReleased");
         }
