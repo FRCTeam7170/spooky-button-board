@@ -1,0 +1,478 @@
+EESchema Schematic File Version 4
+LIBS:frcButtonBoardPro-cache
+EELAYER 29 0
+EELAYER END
+$Descr USLetter 11000 8500
+encoding utf-8
+Sheet 1 5
+Title "Button Board"
+Date "2019-05-18"
+Rev "2.0"
+Comp "FRC Team 7170"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Raspberry_Pi_2_3 J1
+U 1 1 5CDCFD4F
+P 8600 3950
+F 0 "J1" H 8600 5431 50  0000 C CNN
+F 1 "Raspberry_Pi_2_3" H 8600 5340 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical" H 8600 3950 50  0001 C CNN
+F 3 "https://www.raspberrypi.org/documentation/hardware/raspberrypi/schematics/rpi_SCH_3bplus_1p0_reduced.pdf" H 8600 3950 50  0001 C CNN
+	1    8600 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 3850 2100 3750
+Text Notes 600  3800 0    50   ~ 0
+Program to be tied together ->
+NoConn ~ 4750 3850
+NoConn ~ 4750 3750
+Text Notes 5350 2600 0    50   ~ 0
+LEDs
+Text Notes 2650 2600 0    50   ~ 0
+Buttons
+Wire Wire Line
+	4700 4750 4700 4650
+Connection ~ 4700 4750
+Wire Wire Line
+	4750 4750 4700 4750
+Wire Wire Line
+	4700 4650 4700 4550
+Connection ~ 4700 4650
+Wire Wire Line
+	4750 4650 4700 4650
+Wire Wire Line
+	4700 4550 4750 4550
+Wire Wire Line
+	4700 4800 4700 4750
+Connection ~ 1950 4650
+Wire Wire Line
+	1950 4750 2100 4750
+Wire Wire Line
+	1950 4650 1950 4750
+Connection ~ 1950 4550
+Wire Wire Line
+	1950 4650 2100 4650
+Wire Wire Line
+	1950 4550 1950 4650
+Wire Wire Line
+	1950 4550 2100 4550
+Wire Wire Line
+	1950 4000 1950 4050
+$Comp
+L power:+5V #PWR01
+U 1 1 5CDCCE56
+P 1950 4000
+F 0 "#PWR01" H 1950 3850 50  0001 C CNN
+F 1 "+5V" H 1965 4173 50  0000 C CNN
+F 2 "" H 1950 4000 50  0001 C CNN
+F 3 "" H 1950 4000 50  0001 C CNN
+	1    1950 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 5CDCCA73
+P 4700 4800
+F 0 "#PWR06" H 4700 4550 50  0001 C CNN
+F 1 "GND" H 4705 4627 50  0000 C CNN
+F 2 "" H 4700 4800 50  0001 C CNN
+F 3 "" H 4700 4800 50  0001 C CNN
+	1    4700 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 2850 5450 2850
+Wire Wire Line
+	3000 2850 2800 2850
+$Comp
+L power:GND #PWR02
+U 1 1 5CDCA162
+P 2800 5550
+F 0 "#PWR02" H 2800 5300 50  0001 C CNN
+F 1 "GND" H 2805 5377 50  0000 C CNN
+F 2 "" H 2800 5550 50  0001 C CNN
+F 3 "" H 2800 5550 50  0001 C CNN
+	1    2800 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 5CDC9379
+P 5650 5300
+F 0 "C2" H 5765 5346 50  0000 L CNN
+F 1 "100n" H 5765 5255 50  0000 L CNN
+F 2 "Capacitor_THT:C_Rect_L7.0mm_W2.5mm_P5.00mm" H 5688 5150 50  0001 C CNN
+F 3 "~" H 5650 5300 50  0001 C CNN
+	1    5650 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 5CDC8F88
+P 3000 5300
+F 0 "C1" H 3115 5346 50  0000 L CNN
+F 1 "100n" H 3115 5255 50  0000 L CNN
+F 2 "Capacitor_THT:C_Rect_L7.0mm_W2.5mm_P5.00mm" H 3038 5150 50  0001 C CNN
+F 3 "~" H 3000 5300 50  0001 C CNN
+	1    3000 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR08
+U 1 1 5CDC8789
+P 5650 2850
+F 0 "#PWR08" H 5650 2700 50  0001 C CNN
+F 1 "+5V" H 5665 3023 50  0000 C CNN
+F 2 "" H 5650 2850 50  0001 C CNN
+F 3 "" H 5650 2850 50  0001 C CNN
+	1    5650 2850
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR03
+U 1 1 5CDC80A7
+P 3000 2850
+F 0 "#PWR03" H 3000 2700 50  0001 C CNN
+F 1 "+5V" H 3015 3023 50  0000 C CNN
+F 2 "" H 3000 2850 50  0001 C CNN
+F 3 "" H 3000 2850 50  0001 C CNN
+	1    3000 2850
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5CDC7D63
+P 5450 5550
+F 0 "#PWR07" H 5450 5300 50  0001 C CNN
+F 1 "GND" H 5455 5377 50  0000 C CNN
+F 2 "" H 5450 5550 50  0001 C CNN
+F 3 "" H 5450 5550 50  0001 C CNN
+	1    5450 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Interface_Expansion:MCP23S17_SP U2
+U 1 1 5CDC5AF5
+P 5450 3950
+F 0 "U2" H 5450 5231 50  0000 C CNN
+F 1 "MCP23S17_SP" H 5450 5140 50  0000 C CNN
+F 2 "Package_DIP:DIP-28_W7.62mm" H 5650 2950 50  0001 L CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf" H 5650 2850 50  0001 L CNN
+	1    5450 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Interface_Expansion:MCP23S17_SP U1
+U 1 1 5CDC53CB
+P 2800 3950
+F 0 "U1" H 2800 5231 50  0000 C CNN
+F 1 "MCP23S17_SP" H 2800 5140 50  0000 C CNN
+F 2 "Package_DIP:DIP-28_W7.62mm" H 3000 2950 50  0001 L CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf" H 3000 2850 50  0001 L CNN
+	1    2800 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4750 3150 4650 3150
+Wire Wire Line
+	4750 3250 4650 3250
+Wire Wire Line
+	4750 3350 4650 3350
+Wire Wire Line
+	4750 3450 4650 3450
+Text Label 4650 3150 2    50   ~ 0
+~CS_LEDs
+Text Label 4650 3250 2    50   ~ 0
+SCLK
+Text Label 4650 3350 2    50   ~ 0
+MOSI
+Text Label 4650 3450 2    50   ~ 0
+MISO
+Text Label 2000 3150 2    50   ~ 0
+~CS_Buttons
+Text Label 2000 3250 2    50   ~ 0
+SCLK
+Text Label 2000 3350 2    50   ~ 0
+MOSI
+Text Label 2000 3450 2    50   ~ 0
+MISO
+Wire Wire Line
+	2100 3150 2000 3150
+Wire Wire Line
+	2100 3250 2000 3250
+Wire Wire Line
+	2100 3350 2000 3350
+Wire Wire Line
+	2100 3450 2000 3450
+Text Label 9500 4450 0    50   ~ 0
+SCLK
+Text Label 9500 4350 0    50   ~ 0
+MOSI
+Text Label 9500 4250 0    50   ~ 0
+MISO
+Wire Wire Line
+	9500 4250 9400 4250
+Wire Wire Line
+	9500 4350 9400 4350
+Wire Wire Line
+	9500 4450 9400 4450
+Wire Wire Line
+	7800 4150 7700 4150
+Wire Wire Line
+	9400 3450 9500 3450
+Wire Wire Line
+	2100 3750 2000 3750
+Connection ~ 2100 3750
+Text Label 2000 3750 2    50   ~ 0
+INT
+Text Label 9500 3350 0    50   ~ 0
+INT
+Wire Wire Line
+	9500 3350 9400 3350
+$Sheet
+S 750  800  600  200 
+U 5CDF090F
+F0 "power" 50
+F1 "power.sch" 50
+$EndSheet
+$Sheet
+S 3600 3050 650  1800
+U 5CDFEBD0
+F0 "buttons" 50
+F1 "buttons.sch" 50
+F2 "BUTTON1" O L 3600 4050 50 
+F3 "BUTTON2" O L 3600 4150 50 
+F4 "BUTTON3" O L 3600 4250 50 
+F5 "BUTTON4" O L 3600 4350 50 
+F6 "BUTTON5" O L 3600 4450 50 
+F7 "BUTTON6" O L 3600 4550 50 
+F8 "BUTTON7" O L 3600 4650 50 
+F9 "BUTTON8" O L 3600 4750 50 
+F10 "BUTTON9" O L 3600 3150 50 
+F11 "BUTTON10" O L 3600 3250 50 
+F12 "BUTTON11" O L 3600 3350 50 
+F13 "BUTTON12" O L 3600 3450 50 
+F14 "BUTTON13" O L 3600 3550 50 
+F15 "BUTTON14" O L 3600 3650 50 
+F16 "BUTTON15" O L 3600 3750 50 
+F17 "BUTTON16" O L 3600 3850 50 
+$EndSheet
+Wire Wire Line
+	3500 3150 3600 3150
+Wire Wire Line
+	3500 3250 3600 3250
+Wire Wire Line
+	3500 3350 3600 3350
+Wire Wire Line
+	3500 3450 3600 3450
+Wire Wire Line
+	3500 3550 3600 3550
+Wire Wire Line
+	3500 3650 3600 3650
+Wire Wire Line
+	3500 3750 3600 3750
+Wire Wire Line
+	3500 3850 3600 3850
+Wire Wire Line
+	3500 4050 3600 4050
+Wire Wire Line
+	3500 4150 3600 4150
+Wire Wire Line
+	3500 4250 3600 4250
+Wire Wire Line
+	3500 4350 3600 4350
+Wire Wire Line
+	3500 4450 3600 4450
+Wire Wire Line
+	3500 4550 3600 4550
+Wire Wire Line
+	3500 4650 3600 4650
+Wire Wire Line
+	3500 4750 3600 4750
+$Sheet
+S 6250 3050 550  1800
+U 5CE0E572
+F0 "leds" 50
+F1 "leds.sch" 50
+F2 "LED1" I L 6250 4050 50 
+F3 "LED2" I L 6250 4150 50 
+F4 "LED3" I L 6250 4250 50 
+F5 "LED4" I L 6250 4350 50 
+F6 "LED5" I L 6250 4450 50 
+F7 "LED6" I L 6250 4550 50 
+F8 "LED7" I L 6250 4650 50 
+F9 "LED8" I L 6250 4750 50 
+F10 "LED16" I L 6250 3850 50 
+F11 "LED15" I L 6250 3750 50 
+F12 "LED14" I L 6250 3650 50 
+F13 "LED13" I L 6250 3550 50 
+F14 "LED12" I L 6250 3450 50 
+F15 "LED11" I L 6250 3350 50 
+F16 "LED10" I L 6250 3250 50 
+F17 "LED9" I L 6250 3150 50 
+$EndSheet
+Wire Wire Line
+	6150 3150 6250 3150
+Wire Wire Line
+	6150 3250 6250 3250
+Wire Wire Line
+	6150 3350 6250 3350
+Wire Wire Line
+	6150 3450 6250 3450
+Wire Wire Line
+	6150 3550 6250 3550
+Wire Wire Line
+	6150 3650 6250 3650
+Wire Wire Line
+	6150 3750 6250 3750
+Wire Wire Line
+	6150 3850 6250 3850
+Wire Wire Line
+	6150 4050 6250 4050
+Wire Wire Line
+	6150 4150 6250 4150
+Wire Wire Line
+	6150 4250 6250 4250
+Wire Wire Line
+	6150 4350 6250 4350
+Wire Wire Line
+	6150 4450 6250 4450
+Wire Wire Line
+	6150 4550 6250 4550
+Wire Wire Line
+	6150 4650 6250 4650
+Wire Wire Line
+	6150 4750 6250 4750
+$Comp
+L power:GND #PWR011
+U 1 1 5CF29E24
+P 8200 5300
+F 0 "#PWR011" H 8200 5050 50  0001 C CNN
+F 1 "GND" H 8205 5127 50  0000 C CNN
+F 2 "" H 8200 5300 50  0001 C CNN
+F 3 "" H 8200 5300 50  0001 C CNN
+	1    8200 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 5300 8200 5250
+$Comp
+L power:+5V #PWR010
+U 1 1 5CF2BD7A
+P 8200 2650
+F 0 "#PWR010" H 8200 2500 50  0001 C CNN
+F 1 "+5V" V 8215 2778 50  0000 L CNN
+F 2 "" H 8200 2650 50  0001 C CNN
+F 3 "" H 8200 2650 50  0001 C CNN
+	1    8200 2650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8200 2650 8400 2650
+Wire Wire Line
+	8200 5250 8300 5250
+Connection ~ 8200 5250
+Wire Wire Line
+	8300 5250 8400 5250
+Connection ~ 8300 5250
+Wire Wire Line
+	8500 5250 8400 5250
+Connection ~ 8400 5250
+Wire Wire Line
+	8500 5250 8600 5250
+Connection ~ 8500 5250
+Wire Wire Line
+	8700 5250 8600 5250
+Connection ~ 8600 5250
+Wire Wire Line
+	8800 5250 8700 5250
+Connection ~ 8700 5250
+Wire Wire Line
+	8800 5250 8900 5250
+Connection ~ 8800 5250
+Wire Wire Line
+	8500 2650 8400 2650
+Connection ~ 8400 2650
+Wire Wire Line
+	2800 5550 2800 5500
+Wire Wire Line
+	2800 5500 3000 5500
+Wire Wire Line
+	3000 5500 3000 5450
+Connection ~ 2800 5500
+Wire Wire Line
+	2800 5500 2800 5050
+$Comp
+L power:+5V #PWR04
+U 1 1 5D32D89F
+P 3000 5100
+F 0 "#PWR04" H 3000 4950 50  0001 C CNN
+F 1 "+5V" H 3015 5273 50  0000 C CNN
+F 2 "" H 3000 5100 50  0001 C CNN
+F 3 "" H 3000 5100 50  0001 C CNN
+	1    3000 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 5150 3000 5100
+$Comp
+L power:+5V #PWR09
+U 1 1 5D3356B2
+P 5650 5100
+F 0 "#PWR09" H 5650 4950 50  0001 C CNN
+F 1 "+5V" H 5665 5273 50  0000 C CNN
+F 2 "" H 5650 5100 50  0001 C CNN
+F 3 "" H 5650 5100 50  0001 C CNN
+	1    5650 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 5550 5450 5500
+Wire Wire Line
+	5450 5500 5650 5500
+Wire Wire Line
+	5650 5500 5650 5450
+Wire Wire Line
+	5450 5500 5450 5050
+Connection ~ 5450 5500
+Wire Wire Line
+	5650 5150 5650 5100
+Wire Wire Line
+	2100 4050 1950 4050
+Connection ~ 1950 4050
+Wire Wire Line
+	1950 4050 1950 4550
+$Comp
+L power:+5V #PWR05
+U 1 1 5D3543FA
+P 4600 4000
+F 0 "#PWR05" H 4600 3850 50  0001 C CNN
+F 1 "+5V" H 4615 4173 50  0000 C CNN
+F 2 "" H 4600 4000 50  0001 C CNN
+F 3 "" H 4600 4000 50  0001 C CNN
+	1    4600 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 4000 4600 4050
+Wire Wire Line
+	4600 4050 4750 4050
+$Sheet
+S 7050 3450 700  200 
+U 5CE12EE7
+F0 "buzzer" 50
+F1 "buzzer.sch" 50
+F2 "BUZZER_PWM" I R 7750 3550 50 
+$EndSheet
+Wire Wire Line
+	7750 3550 7800 3550
+Text Label 7700 4150 2    50   ~ 0
+~CS_LEDs
+Text Label 9500 3450 0    50   ~ 0
+~CS_Buttons
+$EndSCHEMATC
