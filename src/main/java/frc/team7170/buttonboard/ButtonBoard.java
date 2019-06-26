@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.BiConsumer;
 
+// TODO: Documentation
+// TODO: add instructions to connect to robot radio in README
 public final class ButtonBoard {
 
     private static final int TEAM_NUMBER = 7170;
@@ -166,6 +168,7 @@ public final class ButtonBoard {
                 throw new AssertionError(e);
             }
             System.out.println("Connected!");
+            pulseAllLEDs(3);  // For visual indication that NT connected.
             pressedEntry = instance.getEntry("buttonBoardPressed");
             releasedEntry = instance.getEntry("buttonBoardReleased");
         }
@@ -274,6 +277,34 @@ public final class ButtonBoard {
         } catch (IOException e) {
             System.err.println("failed to set LED");
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void writeAllLEDsUnchecked(boolean state) {
+        try {
+            for (MCP23S17.Pin pin : MCP23S17.Pin.values()) {
+                // LEDs default to on, hence the negation here.
+                leds.getPinView(pin).set(!state);
+            }
+            leds.writeOLATA();
+            leds.writeOLATB();
+        } catch (IOException e) {
+            System.err.println("failed to set LEDs");
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void pulseAllLEDs(int times) {
+        for (int i = 0; i < times; ++i) {
+            try{
+                writeAllLEDsUnchecked(true);
+                Thread.sleep(500);
+                writeAllLEDsUnchecked(false);
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                // Main thread should never be interrupted.
+                throw new AssertionError(e);
+            }
         }
     }
 }
