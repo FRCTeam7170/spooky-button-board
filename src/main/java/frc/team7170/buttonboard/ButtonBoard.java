@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.BiConsumer;
 
-// TODO: robot side of comm
-// TODO: debouncing?
 public final class ButtonBoard {
 
     private static final int TEAM_NUMBER = 7170;
@@ -179,6 +177,7 @@ public final class ButtonBoard {
         buttons.addGlobalListener(ButtonBoard::onButtonUpdate);
         System.out.println("Awaiting button presses...");
 
+        // For testing.
 //        try (Scanner scanner = new Scanner(System.in)) {
 //            Random random = new Random();
 //            MCP23S17.Pin pin = null;

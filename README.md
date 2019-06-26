@@ -1,11 +1,11 @@
 # spooky-button-board
-Java code for controlling custom IO expander Raspberry Pi HAT for a
-button board.
+Java code for controlling custom IO expander Raspberry Pi HAT for a button
+board.
 
 The IO expanders used are MCP23S17's, which have 16 GPIOs with an SPI
 interface. The library used to interface with the chips can be found
-[here](https://github.com/Ro5bert/MCP23S17) (JAR releases of it are
-included in `lib`.)
+[here](https://github.com/Ro5bert/MCP23S17) (JAR releases of it are included
+in `lib`.)
 
 ## Building
 To build, clone this repository and run
@@ -22,14 +22,14 @@ To execute the JAR produced under Building, simply run
 
     java -jar <name-of-jar>
     
-which might need root privileges to access the SPI hardware (prepend
-with `sudo`).
+which might need root privileges to access the SPI hardware (prepend with
+`sudo`).
 
 ## Configuration
 
 #### Enabling SPI Interface
-The Raspberry Pi's SPI interface must be enabled in order to communicate
-with the SPI IO expanders; by default, it is disabled. To enable it run
+The Raspberry Pi's SPI interface must be enabled in order to communicate with
+the SPI IO expanders; by default, it is disabled. To enable it run
 
     raspi-config
     
