@@ -26,6 +26,9 @@ repositories {
 dependencies {
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation group: "edu.wpi.first.ntcore", name: "ntcore-java", version: "2019.4.1"
+    // Native NTCore library. The "linuxraspbian" part should be changed in order to compile for a different
+    // (non-raspberry pi) target. There's probably an automated way to do this...
+    implementation "edu.wpi.first.ntcore:ntcore-jni:2019.4.1:linuxraspbian"
     implementation group: "edu.wpi.first.wpiutil", name: "wpiutil-java", version: "2019.4.1"
     implementation group: "com.pi4j", name: "pi4j-core", version: "1.2"
     implementation name: "mcp23s17-1.1"
