@@ -181,23 +181,23 @@ public final class ButtonBoard {
         System.out.println("Awaiting button presses...");
 
         // For testing.
-        try (Scanner scanner = new Scanner(System.in)) {
-            Random random = new Random();
-            MCP23S17.Pin pin = null;
-            while (true) {
-                scanner.nextLine();
-                int pinNumber = random.nextInt(16);
-                if (pin != null) {
-                    setLEDUnchecked(pin, false);
-                }
-                pin = MCP23S17.Pin.fromPinNumber(pinNumber);
-                setLEDUnchecked(pin, true);
-                System.out.println(pinNumber);
-                if (false) {  // java be dumb
-                    break;
-                }
-            }
-        }
+//        try (Scanner scanner = new Scanner(System.in)) {
+//            Random random = new Random();
+//            MCP23S17.Pin pin = null;
+//            while (true) {
+//                scanner.nextLine();
+//                int pinNumber = random.nextInt(16);
+//                if (pin != null) {
+//                    setLEDUnchecked(pin, false);
+//                }
+//                pin = MCP23S17.Pin.fromPinNumber(pinNumber);
+//                setLEDUnchecked(pin, true);
+//                System.out.println(pinNumber);
+//                if (false) {  // java be dumb
+//                    break;
+//                }
+//            }
+//        }
 
         try {
             // Nothing else to do in main thread; we're just waiting for interrupts now.
@@ -254,10 +254,10 @@ public final class ButtonBoard {
         CommandService commandService = BUTTON_PIN_COMMAND_SERVICE_MAP.get(pin);
         if (state) {
             System.out.println(String.format("Button %d released.", pin.getPinNumber()));
-            postReleasedCommand(commandService.getForRelease());
+//            postReleasedCommand(commandService.getForRelease());
         } else {
             System.out.println(String.format("Button %d pressed.", pin.getPinNumber()));
-            postPressedCommand(commandService.getForPress());
+//            postPressedCommand(commandService.getForPress());
         }
     }
 
