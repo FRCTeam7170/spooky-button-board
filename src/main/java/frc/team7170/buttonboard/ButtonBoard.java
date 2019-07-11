@@ -153,30 +153,30 @@ public final class ButtonBoard {
             throw new RuntimeException(e);
         }
 
-//        // Initialize network tables.
-//        {
-//            NetworkTableInstance instance = NetworkTableInstance.getDefault();
-//            System.out.println("Waiting for robot connection...");
-//            instance.startClientTeam(TEAM_NUMBER);
-//            try {
-//                // Block until NT connects.
-//                while (!instance.isConnected()) {
-//                    Thread.sleep(100);
-//                }
-//            } catch (InterruptedException e) {
-//                // Main thread should never be interrupted.
-//                throw new AssertionError(e);
-//            }
-//            System.out.println("Connected!");
-//            pulseAllLEDs(3);  // For visual indication that NT connected.
-//            pressedEntry = instance.getEntry("buttonBoardPressed");
-//            releasedEntry = instance.getEntry("buttonBoardReleased");
-//        }
-//
-//        pressedEntry.setStringArray(new String[0]);  // Set type.
-//        releasedEntry.setStringArray(new String[0]);  // Set type.
-//        pressedEntry.addListener(ButtonBoard::onPressedEntryCleared, EntryListenerFlags.kUpdate);
-//        releasedEntry.addListener(ButtonBoard::onReleasedEntryCleared, EntryListenerFlags.kUpdate);
+        // Initialize network tables.
+        {
+            NetworkTableInstance instance = NetworkTableInstance.getDefault();
+            System.out.println("Waiting for robot connection...");
+            instance.startClientTeam(TEAM_NUMBER);
+            try {
+                // Block until NT connects.
+                while (!instance.isConnected()) {
+                    Thread.sleep(100);
+                }
+            } catch (InterruptedException e) {
+                // Main thread should never be interrupted.
+                throw new AssertionError(e);
+            }
+            System.out.println("Connected!");
+            pulseAllLEDs(3);  // For visual indication that NT connected.
+            pressedEntry = instance.getEntry("buttonBoardPressed");
+            releasedEntry = instance.getEntry("buttonBoardReleased");
+        }
+
+        pressedEntry.setStringArray(new String[0]);  // Set type.
+        releasedEntry.setStringArray(new String[0]);  // Set type.
+        pressedEntry.addListener(ButtonBoard::onPressedEntryCleared, EntryListenerFlags.kUpdate);
+        releasedEntry.addListener(ButtonBoard::onReleasedEntryCleared, EntryListenerFlags.kUpdate);
         buttons.addGlobalListener(ButtonBoard::onButtonUpdate);
         System.out.println("Awaiting button presses...");
 
