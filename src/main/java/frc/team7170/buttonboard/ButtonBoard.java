@@ -136,16 +136,16 @@ public final class ButtonBoard {
             for (Iterator<MCP23S17.PinView> iter = buttons.getPinViewIterator(); iter.hasNext();) {
                 MCP23S17.PinView pinView = iter.next();
                 pinView.enableInterrupt();
-//                pinView.setDefaultComparisonValue(true);
-//                pinView.toInterruptComparisonMode();
+                pinView.setDefaultComparisonValue(true);
+                pinView.toInterruptComparisonMode();
                 pinView.enablePullUp();
             }
+            buttons.writeDEFVALA();
+            buttons.writeDEFVALB();
             buttons.writeGPPUA();
             buttons.writeGPPUB();
-//            buttons.writeDEFVALA();
-//            buttons.writeDEFVALB();
-//            buttons.writeINTCONA();
-//            buttons.writeINTCONB();
+            buttons.writeINTCONA();
+            buttons.writeINTCONB();
             buttons.writeGPINTENA();
             buttons.writeGPINTENB();
         } catch (IOException e) {
