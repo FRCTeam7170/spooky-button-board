@@ -7,6 +7,8 @@ interface. The library used to interface with the chips can be found
 [here](https://github.com/Ro5bert/MCP23S17) (JAR releases of it are included
 in `lib`.)
 
+The KiCAD schematic and PCB layout can be found in the [kicad folder](kicad).
+
 ## Building
 To build, clone this repository and run
 
